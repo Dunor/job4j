@@ -2,7 +2,7 @@ package ru.job4j.calculate;
 
 /**
  * Class Calculate выводит в консоль текст Hello, Job4j.
- * @autor Максим К.
+ * @author Максим К.
  */
 public class Calculate {   
 
