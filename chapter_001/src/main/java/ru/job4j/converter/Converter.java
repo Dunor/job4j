@@ -10,11 +10,11 @@ public class Converter {
         return value / 60;
     }
 
-    public static int euroToRule(int value){
+    public static int euroToRule(int value) {
         return value * 70;
     }
 
-    public static int dollarToRule(int value){
+    public static int dollarToRule(int value) {
         return value * 60;
     }
 
