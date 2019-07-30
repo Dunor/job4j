@@ -22,4 +22,24 @@ public class FindLoop {
         }
         return rst;
     }
+
+    public int[] sort(int[] data) {
+        int index = 0;
+        int tmp;
+        int minIndex;
+        for (int i = 0; i < data.length; i++) {
+            int min = Integer.MAX_VALUE;
+            for (int j = index; j < data.length; j++) {
+                if (min > data[j]) {
+                    min = data[j];
+                }
+            }
+            tmp = data[index];
+            minIndex = indexOf(data, min, index, data.length - 1);
+            data[index] = data[minIndex];
+            data[minIndex] = tmp;
+            index++;
+        }
+        return data;
+    }
 }
