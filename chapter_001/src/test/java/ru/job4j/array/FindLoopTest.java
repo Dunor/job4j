@@ -23,5 +23,28 @@ public class FindLoopTest {
         int expect = -1;
         assertThat(result, is(expect));
     }
+@Test
+    public void whenArrayHasElementInRange() {
+        FindLoop find = new FindLoop();
+        int[] input = new int[] {5, 10, 3, 8, 89, 6, 1};
+        int value = 6;
+        int start = 2;
+        int finish = 5;
+        int result = find.indexOf(input, value, start, finish);
+        int expect = 5;
+        assertThat(result, is(expect));
+    }
+@Test
+    public void whenArrayHasNotElementInRange() {
+        FindLoop find = new FindLoop();
+        int[] input = new int[] {5, 10, 3, 8, 89, 6, 1};
+        int value = 10;
+        int start = 2;
+        int finish = 5;
+        int result = find.indexOf(input, value, start, finish);
+        int expect = -1;
+        assertThat(result, is(expect));
+    }
+
 
 }
