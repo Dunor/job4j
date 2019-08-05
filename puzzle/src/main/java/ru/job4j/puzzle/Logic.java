@@ -69,40 +69,24 @@ public class Logic {
     public boolean isWin() {
         int[][] table = this.convert();
         boolean result = false;
-        int winIndexOut = -1;
-        int winIndexIn = -1;
         int countOut = 0;
         int countIn = 0;
         for (int out = 0; out < size; out++) {
             for (int in = 0; in < size; in++) {
-               if (countIn == 0) {
-                   if (table[0][in] == 1  ) {
-                       winIndexIn = in;
-                       countIn++;
-                   }
-               } else {
-                   if (table[out][in] == 1 && countIn > 0) {
-                       if (in == winIndexIn) {
-                           countIn++;
-                       }
-                   }
-               }
-                if (countOut == 0) {
-                   if (table[out][0] == 1) {
-                       winIndexOut = out;
-                       countOut++;
-                   }
-               } else {
-                   if (table[out][in] == 1 && countOut > 0) {
-                       if (out == winIndexOut) {
-                           countOut++;
-                       }
-                   }
-               }
+                if (table[out][in] == 1) {
+                    countOut++;
+                }
+                if (table[in][out] == 1) {
+                    countIn++;
+                }
             }
-        }
-        if (countIn == size || countOut == size) {
-            result = true;
+            if (countIn == size || countOut == size) {
+                result = true;
+                break;
+            }else {
+                countIn = 0;
+                countOut = 0;
+            }
         }
         return result;
     }
