@@ -1,13 +1,21 @@
 package ru.job4j.array;
 
-import java.util.Arrays;
-
+/**
+ * Объединить два отсортированных массива
+ * @author - Максим К. (dunor@mail.ru)
+ */
 public class UniteArrays {
-    public int[] merge(int[] left, int[] right ) {
+    /**
+     * Объединяет два отсортированых массива в один отсортированный масив.
+     * @param left - первый отсотированный массив.
+     * @param right - второй отсортированный массив.
+     * @return - объединенный отсортированный мвссив.
+     */
+    public int[] merge(int[] left, int[] right) {
         int[] result = new int[left.length + right.length];
         int j = 0;
         int k = 0;
-        for (int i = 0; i < result.length; ) {
+        for (int i = 0; i < result.length;) {
             if (j < left.length && k < right.length) {
                 if (left[j] <= right[k]) {
                     result[i] = left[j];
@@ -17,7 +25,7 @@ public class UniteArrays {
                     k++;
                 }
             } else {
-                if (k < right.length){
+                if (k < right.length) {
                     result[i] = right[k];
                     k++;
                 }

@@ -14,8 +14,8 @@ public class EndsWith {
         char[] pst = post.toCharArray();
         char[] wrd = word.toCharArray();
         // проверить. что массив data имеет первые элементы одинаковые с value
-        for (int i = pst.length -1, j = wrd.length - 1; i >= 0; i--, j--) {
-            if (pst[i] != wrd[j]){
+        for (int i = pst.length - 1, j = wrd.length - 1; i >= 0; i--, j--) {
+            if (pst[i] != wrd[j]) {
                 result = false;
                 break;
             }
