@@ -1,28 +1,46 @@
 package ru.job4j.condition;
 
+import static java.lang.Math.*;
+
 /**
  * Расстояние между точками в системе координат.
  * @author - Максим К. (dunor@mail.ru)
  */
 public class Point {
+
     /**
-     * Вычисляет расстояние между двумя точками в системе координат.
-     * @param x1 - X - координата, первой точки.
-     * @param y1 - Y - координата, первой точки.
-     * @param x2 - X - координата, второй точки.
-     * @param y2 - Y - координата, второй точки.
-     * @return - Возвращает расстояние между тчками.
+     * Это поле объекта. Оно доступно только конкретному объекту.
      */
-    public static double distance(int x1, int y1, int x2, int y2) {
-        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+    private int x;
+
+    /**
+     * И это поле объекта. Оно доступно только конкретному объекту.
+     */
+    private int y;
+
+    /**
+     * Конструтор, который принимает начальное состояние объекта "точка"
+     * @param first координата x
+     * @param second координата y
+     */
+    public Point(int first, int second) {
+        this.x = first;
+        this.y = second;
     }
 
     /**
-     * Ввод данных и вывод результата в консоль.
-     * @param args - args/
+     * Вычисляет расстояние между двумя точками в системе координат.
+     * @param that - переменная типа Point.
+     * @return - Возвращает расстояние между тчками.
      */
-    public static void main(String[] args) {
-        double result = distance(0, 0, 2, 0);
-        System.out.println("result (0, 0) to (2, 0) " + result);
+    public double distance(Point that) {
+        return sqrt(pow(this.x - that.x, 2) + pow(this.y - that.y, 2));
+    }
+
+    /**
+     * Метод info() выводит значения полей x и y в консоль.
+     */
+    public void info() {
+        System.out.println(String.format("Point[%s, %s]", this.x, this.y));
     }
 }
