@@ -12,11 +12,8 @@ public class Point {
      * Это поле объекта. Оно доступно только конкретному объекту.
      */
     private int x;
-
-    /**
-     * И это поле объекта. Оно доступно только конкретному объекту.
-     */
     private int y;
+    private int z;
 
     /**
      * Конструтор, который принимает начальное состояние объекта "точка"
@@ -29,6 +26,18 @@ public class Point {
     }
 
     /**
+     * Конструтор, который принимает начальное состояние объекта "точка" в трехмерном пространстве.
+     * @param x - координата x
+     * @param y - координата y
+     * @param z - координата z
+     */
+     public Point(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    /**
      * Вычисляет расстояние между двумя точками в системе координат.
      * @param that - переменная типа Point.
      * @return - Возвращает расстояние между тчками.
@@ -38,9 +47,18 @@ public class Point {
     }
 
     /**
-     * Метод info() выводит значения полей x и y в консоль.
+     * Вычисляет расстояние между двумя точками в системе координат xyz.
+     * @param that - переменная типа Point.
+     * @return - Возвращает расстояние между тчками.
+     */
+    public double distance3d(Point that) {
+        return sqrt(pow(this.x - that.x, 2) + pow(this.y - that.y, 2) + pow(this.z - that.z, 2));
+    }
+
+    /**
+     * Метод info() выводит значения полей x, y, z в консоль.
      */
     public void info() {
-        System.out.println(String.format("Point[%s, %s]", this.x, this.y));
+        System.out.println(String.format("Point[%s, %s, %s]", this.x, this.y, this.z));
     }
 }
