@@ -61,7 +61,7 @@ public class StartUI {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
-            String answer = this.input.ask("Введите пункт меню: ");
+            String answer = this.input.askStr("Введите пункт меню: ");
             switch (answer) {
                 case (ADD):
                     this.createItem();
@@ -109,8 +109,8 @@ public class StartUI {
      */
     private void createItem() {
         System.out.println("------------ Добавление новой заявки --------------");
-        String name = this.input.ask("Введите имя заявки :");
-        String desc = this.input.ask("Введите описание заявки :");
+        String name = this.input.askStr("Введите имя заявки :");
+        String desc = this.input.askStr("Введите описание заявки :");
         Item item = new Item(name, desc);
         this.tracker.add(item);
         System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
@@ -143,9 +143,9 @@ public class StartUI {
      * Метод реализует редактирование заявки по id.
      */
     private void editItem() {
-        String id = this.input.ask("Введите id завки, которую хотите изменить: ");
-        String name = this.input.ask("Введите имя заявки :");
-        String desc = this.input.ask("Введите описание заявки :");
+        String id = this.input.askStr("Введите id завки, которую хотите изменить: ");
+        String name = this.input.askStr("Введите имя заявки :");
+        String desc = this.input.askStr("Введите описание заявки :");
         Item item = new Item(name, desc);
         if (this.tracker.replace(id, item)) {
             System.out.println("Заявка изменина.");
@@ -158,7 +158,7 @@ public class StartUI {
      * Метод реализует поиск и вывод заявки по id.
      */
     private void findByIdItem() {
-        String id = this.input.ask("Введите id завки: ");
+        String id = this.input.askStr("Введите id завки: ");
         Item item = this.tracker.findById(id);
         if (item == null) {
             System.out.println("Заявка с id: " + id + " не найдена.");
@@ -171,7 +171,7 @@ public class StartUI {
      * Метод реализует удаление заявки.
      */
     private void deleteItem() {
-        String id = this.input.ask("Введите id завки: ");
+        String id = this.input.askStr("Введите id завки: ");
         if (this.tracker.delete(id)) {
             System.out.println("Заявка с id: " + id + " удалена.");
         } else {
@@ -183,7 +183,7 @@ public class StartUI {
      * Метод реализует поиск и вывод заявок по имени.
      */
     private void findByNameItems() {
-        String name = this.input.ask("Введите имя заявки :");
+        String name = this.input.askStr("Введите имя заявки :");
         Item[] items = this.tracker.findByName(name);
         for (Item item : items) {
             showApplication(item);

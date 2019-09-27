@@ -31,7 +31,12 @@ public class StubInput implements Input{
      * при следующем вызове он вернет нам новое значение.
      */
     @Override
-    public String ask(String question) {
+    public String askStr(String question) {
         return this.value[this.position++];
+    }
+
+    @Override
+    public int askInt(String question) {
+        return Integer.valueOf(askStr(question));
     }
 }

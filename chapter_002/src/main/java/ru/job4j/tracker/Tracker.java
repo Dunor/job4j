@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -44,9 +43,9 @@ public class Tracker {
     public boolean replace(String id, Item item) {
         boolean result = false;
         for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
+            if (this.items[i].getId().equals(id)) {
                 item.setId(id);
-                items[i] = item;
+                this.items[i] = item;
                 result = true;
                 break;
             }
@@ -62,8 +61,8 @@ public class Tracker {
     public boolean delete(String id) {
         boolean result = false;
         for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
-                System.arraycopy(items, i + 1, items, i, position - i + 1);
+            if (this.items[i].getId().equals(id)) {
+                System.arraycopy(this.items, i + 1, this.items, i, position - i + 1);
                 position--;
                 result = true;
                 break;
@@ -89,8 +88,8 @@ public class Tracker {
         Item[] tmp = new Item[position];
         int j = 0;
         for (int i = 0; i < position; i++) {
-            if (items[i].getName().equals(key)) {
-                tmp[j++] = items[i];
+            if (this.items[i].getName().equals(key)) {
+                tmp[j++] = this.items[i];
             }
         }
         return Arrays.copyOf(tmp, j);
@@ -105,8 +104,8 @@ public class Tracker {
     public Item findById(String id) {
         Item result = null;
         for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
-                result = items[i];
+            if (this.items[i].getId().equals(id)) {
+                result = this.items[i];
                 break;
             }
         }
