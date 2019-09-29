@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import javax.sound.midi.Track;
+
 /**
  * @version $Id$
  * @since 0.1
@@ -40,49 +42,35 @@ public class StartUI {
      */
     private static final String EXIT = "6";
 
-    private final Input input;
-
-    private final Tracker tracker;
-
-    /**
-     * Конструтор инициализирующий поля.
-     * @param input ввод данных.
-     * @param tracker хранилище заявок.
-     */
-    StartUI(Input input, Tracker tracker) {
-        this.input = input;
-        this.tracker = tracker;
-    }
-
     /**
      *Основной цикл программы.
      */
-    public void init() {
-        boolean exit = false;
-        while (!exit) {
+    public void init(Input input, Tracker tracker) {
+        boolean run = false;
+        while (!run) {
             this.showMenu();
-            String answer = this.input.askStr("Введите пункт меню: ");
+            String answer = input.askStr("Введите пункт меню: ");
             switch (answer) {
                 case (ADD):
-                    this.createItem();
+                    StartUI.createItem(input, tracker);
                     break;
                 case (SHOW):
-                    this.showItems();
+                    StartUI.showItems(tracker);
                     break;
                 case (EDIT):
-                    this.editItem();
+                    StartUI.replaceItem(input, tracker);
                     break;
                 case (DELETE):
-                    deleteItem();
+                    StartUI.deleteItem(input, tracker);
                     break;
                 case (FIND_BY_ID):
-                    findByIdItem();
+                    StartUI.findByIdItem(input, tracker);
                     break;
                 case (FIND_BY_NAME):
-                    findByNameItems();
+                    StartUI.findByNameItems(input, tracker);
                     break;
                 case (EXIT):
-                    exit = true;
+                    run = true;
                     break;
                 default:
                     System.out.println("Повторите ввод!");
@@ -107,13 +95,13 @@ public class StartUI {
     /**
      * Метод реализует добавленяи новый заявки в хранилище.
      */
-    private void createItem() {
-        System.out.println("------------ Добавление новой заявки --------------");
-        String name = this.input.askStr("Введите имя заявки :");
-        String desc = this.input.askStr("Введите описание заявки :");
-        Item item = new Item(name, desc);
-        this.tracker.add(item);
-        System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
+    public static void createItem(Input input, Tracker tracker) {
+        System.out.println("=== Create a new Item ====");
+        String name = input.askStr("Enter name: ");
+        //String desc = input.askStr("Введите описание заявки :");
+        Item item = new Item(name);
+        tracker.add(item);
+        //System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
     }
 
     /**
@@ -121,19 +109,19 @@ public class StartUI {
      * @param item - заявка
      */
 
-    private void showApplication(Item item) {
-        System.out.println("-------- Заявка --------");
+    public static void showApplication(Item item) {
+        System.out.println("=== Item ====");
         System.out.println("ID: " + item.getId());
-        System.out.println("Название: " + item.getName());
-        System.out.println("Описание: " + item.getDesc());
+        System.out.println("Name: " + item.getName());
+       // System.out.println("Описание: " + item.getDesc());
         System.out.println();
     }
 
     /**
      * Метод реализует вывод заявок.
      */
-    private void showItems() {
-        Item[] items = this.tracker.findAll();
+    public static void showItems(Tracker tracker) {
+        Item[] items = tracker.findAll();
         for (Item item : items) {
            showApplication(item);
         }
@@ -142,12 +130,12 @@ public class StartUI {
     /**
      * Метод реализует редактирование заявки по id.
      */
-    private void editItem() {
-        String id = this.input.askStr("Введите id завки, которую хотите изменить: ");
-        String name = this.input.askStr("Введите имя заявки :");
-        String desc = this.input.askStr("Введите описание заявки :");
-        Item item = new Item(name, desc);
-        if (this.tracker.replace(id, item)) {
+    public static void replaceItem(Input input, Tracker tracker) {
+        String id = input.askStr("Enter id: ");
+        String name = input.askStr("Enter name: ");
+       // String desc = input.askStr("Введите описание заявки :");
+        Item item = new Item(name);
+        if (tracker.replace(id, item)) {
             System.out.println("Заявка изменина.");
         } else {
             System.out.println("Заявка с id: " + id + " не найдена.");
@@ -157,9 +145,9 @@ public class StartUI {
     /**
      * Метод реализует поиск и вывод заявки по id.
      */
-    private void findByIdItem() {
-        String id = this.input.askStr("Введите id завки: ");
-        Item item = this.tracker.findById(id);
+    public static void findByIdItem(Input input, Tracker tracker) {
+        String id = input.askStr("Введите id завки: ");
+        Item item = tracker.findById(id);
         if (item == null) {
             System.out.println("Заявка с id: " + id + " не найдена.");
         } else {
@@ -170,9 +158,9 @@ public class StartUI {
      /**
      * Метод реализует удаление заявки.
      */
-    private void deleteItem() {
-        String id = this.input.askStr("Введите id завки: ");
-        if (this.tracker.delete(id)) {
+    public static void deleteItem(Input input, Tracker tracker) {
+        String id = input.askStr("Введите id завки: ");
+        if (tracker.delete(id)) {
             System.out.println("Заявка с id: " + id + " удалена.");
         } else {
             System.out.println("Заявка с id: " + id + " не удалена.");
@@ -182,9 +170,9 @@ public class StartUI {
      /**
      * Метод реализует поиск и вывод заявок по имени.
      */
-    private void findByNameItems() {
-        String name = this.input.askStr("Введите имя заявки :");
-        Item[] items = this.tracker.findByName(name);
+    public static void findByNameItems(Input input, Tracker tracker) {
+        String name = input.askStr("Введите имя заявки :");
+        Item[] items = tracker.findByName(name);
         for (Item item : items) {
             showApplication(item);
         }
@@ -196,6 +184,6 @@ public class StartUI {
      * @param args - args
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI().init(new ConsoleInput(), new Tracker());
     }
 }

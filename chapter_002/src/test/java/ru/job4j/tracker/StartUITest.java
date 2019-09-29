@@ -29,34 +29,40 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});   //создаём StubInput с последовательностью действий
-        new StartUI(input, tracker).init();     //   создаём StartUI и вызываем метод init()
-        assertThat(tracker.findAll()[0].getName(), is("test name")); // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
+    public void whenAddItem() {
+        String[] answers = {"Fix PC"};
+        Input input = new StubInput(answers);
+        Tracker tracker = new Tracker();
+        StartUI.createItem(input, tracker);
+        Item created = tracker.findAll()[0];
+        Item expected = new Item("Fix PC");
+        assertThat(created.getName(), is(expected.getName()));
     }
 
     @Test
-    public void whenUpdateThenTrackerHasUpdatedValue() {
-        //Напрямую добавляем заявку
-        Item item = tracker.add(new Item("test name", "desc"));
-        //создаём StubInput с последовательностью действий(производим замену заявки)
-        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
-        // создаём StartUI и вызываем метод init()
-        new StartUI(input, tracker).init();
-        // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
-        assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
+    public void whenReplaceItem() {
+       Tracker tracker = new Tracker();
+       Item item = new Item("new item");
+       tracker.add(item);
+       String[] answers = {
+         item.getId(),   // id сохраненной заявки в объект tracker.
+         "replaced item"
+       };
+       StartUI.replaceItem(new StubInput(answers), tracker);
+       Item replaced = tracker.findById(item.getId());
+       assertThat(replaced.getName(), is("replaced item"));
     }
 
     @Test
-    public void whenUserDeleteItemByID() {
-        Item item = tracker.add(new Item("test name", "desc"));
+    public void whenDeleteItem() {
+        Item item = tracker.add(new Item("test name"));
         String id = item.getId();
         Input input = new StubInput(new String[]{"3", id, "заявка удалена", "6"});
-        new StartUI(input, tracker).init();
+        new StartUI().init(input, tracker);
         assertNull(tracker.findById(id));
     }
 
-    @Test
+   /* @Test
     public void whenShowAllItems() {
         Item item = tracker.add(new Item("test1", "desc1"));
         System.setOut(new PrintStream(this.out));
@@ -89,5 +95,5 @@ public class StartUITest {
                 .toString()) != -1
         );
         System.setOut(this.stdout);
-    }
+    }*/
 }

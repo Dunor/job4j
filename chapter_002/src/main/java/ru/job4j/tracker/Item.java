@@ -8,15 +8,9 @@ import java.util.Objects;
 public class Item {
     private String id;
     private String name;
-    private String desc;
 
     public Item(String name) {
         this.name = name;
-    }
-
-    public Item(String name, String desc) {
-        this.name = name;
-        this.desc = desc;
     }
 
     public String getId() {
@@ -35,11 +29,4 @@ public class Item {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
 }
