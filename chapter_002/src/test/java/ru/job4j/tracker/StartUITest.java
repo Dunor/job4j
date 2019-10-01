@@ -28,7 +28,7 @@ public class StartUITest {
         System.out.println("execute after method");
     }
 
-    @Test
+   /* @Test
     public void whenAddItem() {
         String[] answers = {"Fix PC"};
         Input input = new StubInput(answers);
@@ -55,12 +55,16 @@ public class StartUITest {
 
     @Test
     public void whenDeleteItem() {
-        Item item = tracker.add(new Item("test name"));
+        Tracker tracker = new Tracker();
+        Item item = new Item("new item");
+        tracker.add(item);
         String id = item.getId();
-        Input input = new StubInput(new String[]{"3", id, "заявка удалена", "6"});
-        new StartUI().init(input, tracker);
+        String[] answers = {
+                id   // id сохраненной заявки в объект tracker.
+        };
+        StartUI.deleteItem(new StubInput(answers), tracker);
         assertNull(tracker.findById(id));
-    }
+    }*/
 
    /* @Test
     public void whenShowAllItems() {
