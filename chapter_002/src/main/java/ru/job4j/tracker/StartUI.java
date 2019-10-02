@@ -22,7 +22,7 @@ public class StartUI {
      * Меню.
      */
     private void showMenu(UserAction[] actions) {
-        System.out.println("Меню.");
+        System.out.println("Menu.");
         for (int index = 0; index < actions.length; index++) {
             System.out.println(index + ". " + actions[index].name());
         }
@@ -37,7 +37,6 @@ public class StartUI {
         System.out.println("=== Item ====");
         System.out.println("ID: " + item.getId());
         System.out.println("Name: " + item.getName());
-        System.out.println();
     }
 
     /**
@@ -49,7 +48,7 @@ public class StartUI {
         Tracker tracker = new Tracker();
         UserAction[] actions = {
                 new CreateAction(),
-                new ShowItemsAction(),
+                new FindAllAction(),
                 new ReplaceAction(),
                 new DeleteAction(),
                 new FindByIdAction(),
