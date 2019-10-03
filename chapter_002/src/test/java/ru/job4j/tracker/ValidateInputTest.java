@@ -22,4 +22,20 @@ public class ValidateInputTest {
         );
         System.setOut(out);
     }
+    @Test
+    public void whenInvalidInput2() {
+        ByteArrayOutputStream mem = new ByteArrayOutputStream();
+        PrintStream out = System.out;
+        System.setOut(new PrintStream(mem));
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[] {"10", "1"})
+        );
+        input.askInt("Enter", 2);
+        assertThat(
+                new String(mem.toByteArray()),
+                is(String.format("Please select key from menu.%n"))
+        );
+        System.setOut(out);
+    }
+
 }
