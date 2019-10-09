@@ -18,7 +18,7 @@ public class FindByNameActionTest {
         Tracker tracker = new Tracker();
         Item item = new Item("fix bug");
         tracker.add(item);
-        FindByName act = new FindByName();
+        FindByName act = new FindByName("Find items by name");
         act.execute(new StubInput(new String[] {item.getName()}), tracker);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("=== Item ====")
