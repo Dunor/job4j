@@ -5,11 +5,6 @@ public class FindByName extends BaseAction {
         super(name);
     }
 
-    /*@Override
-    public String name() {
-        return "=== Find items by name ====";
-    }*/
-
     @Override
     public boolean execute(Input input, Tracker tracker) {
         String name = input.askStr("Введите имя заявки :");

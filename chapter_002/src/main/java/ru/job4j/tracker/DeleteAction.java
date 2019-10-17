@@ -5,11 +5,6 @@ public class DeleteAction extends BaseAction {
         super(name);
     }
 
-    /*@Override
-    public String name() {
-        return "=== Delete item ====";
-    }*/
-
     @Override
     public boolean execute(Input input, Tracker tracker) {
         String id = input.askStr("Введите id завки: ");
