@@ -9,19 +9,18 @@ public class ConvertList2Array {
         int cells = (int)Math.ceil((double)list.size() / rows);
         int[][] array = new int[rows][cells];
         for (Integer lst : list) {
-            while (i < rows) {
-                while ( j < cells) {
+            for (int arg1[] : array) {
+                for (int arg2 : arg1){
                     array[i][j] = lst;
                     j++;
                     break;
                 }
-                if (j < cells) {
-                    break;
-                } else {
+                if (j >= cells) {
                     j = 0;
                     i++;
                     break;
                 }
+                break;
             }
         }
         return array;
