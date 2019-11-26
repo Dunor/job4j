@@ -3,6 +3,9 @@ package ru.job4j.tracker;
 import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -12,10 +15,13 @@ public class ValidateInputTest {
         ByteArrayOutputStream mem = new ByteArrayOutputStream();
         PrintStream out = System.out;
         System.setOut(new PrintStream(mem));
+        ArrayList<String> lst = new ArrayList<>();
+        lst.add("invalid");
+        lst.add("1");
         ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"invalid", "1"})
+                new StubInput(lst)
         );
-        input.askInt("Enter", 1);
+        input.askInt("Enter", 2);
         assertThat(
                 new String(mem.toByteArray()),
                 is(String.format("Please enter validate data again.%n"))
@@ -27,8 +33,11 @@ public class ValidateInputTest {
         ByteArrayOutputStream mem = new ByteArrayOutputStream();
         PrintStream out = System.out;
         System.setOut(new PrintStream(mem));
+        ArrayList<String> lst = new ArrayList<>();
+        lst.add("10");
+        lst.add("1");
         ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"10", "1"})
+                new StubInput(lst)
         );
         input.askInt("Enter", 2);
         assertThat(
