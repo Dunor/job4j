@@ -1,13 +1,15 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
+    private final List<Item> items = new ArrayList<>();
 
     /**
      * Указатель ячейки для новой заявки.
@@ -20,7 +22,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        items.add(this.position++, item);
         return item;
     }
 
@@ -42,10 +44,10 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < position; i++) {
-            if (this.items[i].getId().equals(id)) {
+        for (Item itm : items) {
+            if (itm.getId().equals(id)) {
                 item.setId(id);
-                this.items[i] = item;
+                items.set(items.indexOf(itm), item);
                 result = true;
                 break;
             }
@@ -60,10 +62,9 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        for (int i = 0; i < position; i++) {
-            if (this.items[i].getId().equals(id)) {
-                System.arraycopy(this.items, i + 1, this.items, i, position - i + 1);
-                position--;
+        for (Item itm : items) {
+            if (itm.getId().equals(id)) {
+                items.remove(itm);
                 result = true;
                 break;
             }
@@ -75,8 +76,8 @@ public class Tracker {
      * Возвращает копию массива this.items без null элементов.
      * @return - массив без null элементов.
      */
-    public Item[] findAll() {
-        return Arrays.copyOf(this.items, this.position);
+    public List<Item> findAll() {
+        return items;
     }
 
     /**
@@ -84,15 +85,14 @@ public class Tracker {
      * @param key - искомое имя элемента.
      * @return - массив с найдеными элементами.
      */
-    public Item[] findByName(String key) {
-        Item[] tmp = new Item[position];
-        int j = 0;
-        for (int i = 0; i < position; i++) {
-            if (this.items[i].getName().equals(key)) {
-                tmp[j++] = this.items[i];
+    public List<Item> findByName(String key) {
+        List<Item> tmp = new ArrayList<>();
+        for (Item itm : items) {
+            if (itm.getName().equals(key)) {
+                tmp.add(itm);
             }
         }
-        return Arrays.copyOf(tmp, j);
+        return tmp;
     }
 
     /**
@@ -103,9 +103,9 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
-        for (int i = 0; i < position; i++) {
-            if (this.items[i].getId().equals(id)) {
-                result = this.items[i];
+        for (Item itm : items) {
+            if (itm.getId().equals(id)) {
+                result = itm;
                 break;
             }
         }

@@ -2,8 +2,11 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
@@ -19,7 +22,9 @@ public class FindByNameActionTest {
         Item item = new Item("fix bug");
         tracker.add(item);
         FindByName act = new FindByName("Find items by name");
-        act.execute(new StubInput(new String[] {item.getName()}), tracker);
+        ArrayList<String> lst = new ArrayList<String>();
+        lst.add(item.getName());
+        act.execute(new StubInput(lst), tracker);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("=== Item ====")
                 .add("ID: " + item.getId())
