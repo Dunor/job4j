@@ -83,7 +83,7 @@ public class Logic {
             if (countIn == size || countOut == size) {
                 result = true;
                 break;
-            }else {
+            } else {
                 countIn = 0;
                 countOut = 0;
             }
