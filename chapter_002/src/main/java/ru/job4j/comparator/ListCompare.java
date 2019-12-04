@@ -9,7 +9,7 @@ public class ListCompare implements Comparator<String> {
         int rstComp = Integer.compare(left.length(), right.length());
         String str = left.length() < right.length() ? left : right;
         for (int i = 0; i < str.length(); i++) {
-           rst = Character.compare (left.charAt(i), right.charAt(i));
+           rst = Character.compare(left.charAt(i), right.charAt(i));
            if (rst != 0) {
                break;
            } else if ((i == str.length() - 1) && (rstComp != 0)) {

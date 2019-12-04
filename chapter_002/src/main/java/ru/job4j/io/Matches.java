@@ -13,7 +13,7 @@ public class Matches {
             if (player) {
                 System.out.println("Игрок 1 возьмите от 1 до 3 спичек:");
                 player = false;
-            }else {
+            } else {
                 System.out.println("Игрок 2 возьмите от 1 до 3 спичек:");
                 player = true;
             }

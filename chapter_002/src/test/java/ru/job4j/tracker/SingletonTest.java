@@ -14,7 +14,7 @@ public class SingletonTest {
     }
 
     @Test
-    public void SingletonPrivateStaticFinalClass() {
+    public void singletonPrivateStaticFinalClass() {
         Tracker tracker1 = SingletonPrivateStaticFinalClass.getInstance();
         Tracker tracker2 = SingletonPrivateStaticFinalClass.getInstance();
 
@@ -22,7 +22,7 @@ public class SingletonTest {
     }
 
     @Test
-    public void SingletonStaticField() {
+    public void singletonStaticField() {
         Tracker tracker1 = SingletonStaticField.getInstance();
         Tracker tracker2 = SingletonStaticField.getInstance();
 
@@ -30,7 +30,7 @@ public class SingletonTest {
     }
 
     @Test
-    public void SingletonStaticFinalField() {
+    public void singletonStaticFinalField() {
         Tracker tracker1 = SingletonStaticFinalField.getInstance();
         Tracker tracker2 = SingletonStaticFinalField.getInstance();
 
