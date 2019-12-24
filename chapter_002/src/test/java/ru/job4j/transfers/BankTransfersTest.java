@@ -70,16 +70,13 @@ public class BankTransfersTest {
     public void transferMoney() {
         BankTransfers bankTransfers = new BankTransfers();
         User user = new User("Person1", "12345");
-        Account account1 = new Account(250, "aa222aa");
-        Account account2 = new Account(1000, "bb123bb");
+        Account account1 = new Account(250, "aa222");
+        Account account2 = new Account(1000, "bb123");
         bankTransfers.addUser(user);
         bankTransfers.addAccountToUser("12345", account1);
         bankTransfers.addAccountToUser("12345", account2);
-        boolean rst = bankTransfers.transferMoney("12345", "aa222aa",
-                "12345", "bb123bb", 200);
-        System.out.println(rst);
-        //assertTrue(bankTransfers.transferMoney("12345", "aa222aa",
-         //       "12345", "bb123bb", 200));
+        assertTrue(bankTransfers.transferMoney("12345", "aa222",
+               "12345", "bb123", 200));
     }
 
 

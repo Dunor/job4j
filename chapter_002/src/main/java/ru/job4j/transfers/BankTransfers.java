@@ -63,13 +63,14 @@ public class BankTransfers {
         Account dstAccount = null;
 
         for (Map.Entry<User, List<Account>> entry : clients.entrySet()) {
-            if (entry.getKey().getPassport().equals(srcPassport)
-            && entry.getValue().indexOf(srcRequisite) != -1) {
-                srcAccount = entry.getValue().get(entry.getValue().indexOf(srcRequisite));
-            }
-            if (entry.getKey().getPassport().equals(destPassport)
-                        && entry.getValue().indexOf(dstRequisite) != -1) {
-                            dstAccount = entry.getValue().get(entry.getValue().indexOf(dstRequisite));
+            if (entry.getKey().getPassport().equals(srcPassport) || entry.getKey().getPassport().equals(destPassport)) {
+                for ( Account account : entry.getValue()) {
+                    if (account.getRequisites().equals(srcRequisite)) {
+                        srcAccount = account;
+                    } else if ((account.getRequisites().equals(dstRequisite))) {
+                        dstAccount = account;
+                    }
+                }
             }
         }
         if (srcAccount != null && dstAccount != null && srcAccount.getValue() > amount) {
