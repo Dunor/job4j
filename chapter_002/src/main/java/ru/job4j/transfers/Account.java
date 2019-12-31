@@ -24,4 +24,9 @@ public class Account {
     public void setRequisites(String requisite) {
         this.requisite = requisite;
     }
+
+    public void transfer(Account account, double amount) {
+        this.setValue(this.getValue() + amount);
+        account.setValue(account.getValue() - amount);
+    }
 }

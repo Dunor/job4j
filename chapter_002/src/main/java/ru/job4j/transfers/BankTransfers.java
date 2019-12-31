@@ -6,12 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 public class BankTransfers {
-    private List<Account> accounts = new ArrayList<>();
     private Map<User, List<Account>> clients = new HashMap<>();
 
     //добавление пользователя.
     public void addUser(User user) {
-        clients.putIfAbsent(user,  accounts);
+        clients.putIfAbsent(user,  new ArrayList<>());
     }
 
     // удаление пользователя.
@@ -25,21 +24,13 @@ public class BankTransfers {
 
     //добавить счёт пользователю.
     public void addAccountToUser(String passport, Account account) {
-        for (Map.Entry<User, List<Account>> entry : clients.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                entry.getValue().add(account);
-            }
-        }
+        clients.get(this.getUserByPassport(passport)).add(account);
 
     }
 
     //удалить один счёт пользователя.
     public void deleteAccountFromUser(String passport, Account account) {
-        for (Map.Entry<User, List<Account>> entry : clients.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                entry.getValue().remove(account);
-            }
-        }
+        clients.get(this.getUserByPassport(passport)).remove(account);
 
     }
 
@@ -62,7 +53,7 @@ public class BankTransfers {
         Account srcAccount = null;
         Account dstAccount = null;
 
-        for (Map.Entry<User, List<Account>> entry : clients.entrySet()) {
+        /*for (Map.Entry<User, List<Account>> entry : clients.entrySet()) {
             if (entry.getKey().getPassport().equals(srcPassport) || entry.getKey().getPassport().equals(destPassport)) {
                 for ( Account account : entry.getValue()) {
                     if (account.getRequisites().equals(srcRequisite)) {
@@ -72,6 +63,9 @@ public class BankTransfers {
                     }
                 }
             }
+        }*/
+        if (this.getUserByPassport(srcPassport) != null || this.getUserByPassport(destPassport) != null) {
+
         }
         if (srcAccount != null && dstAccount != null && srcAccount.getValue() > amount) {
             dstAccount.setValue(dstAccount.getValue() + amount);
@@ -83,5 +77,32 @@ public class BankTransfers {
 
     public Map<User, List<Account>> getClients() {
         return clients;
+    }
+
+    //поиск пользователя по паспорту
+    private User getUserByPassport(String passport) {
+        User user = null;
+        for (Map.Entry<User, List<Account>> entry : clients.entrySet()) {
+            if (entry.getKey().getPassport().equals(passport)) {
+                user = entry.getKey();
+            }
+        }
+        return user;
+    }
+
+    //поиск счета
+    private Account getAccount(User user, String req) {
+        Account account = null;
+        for (Map.Entry<User, List<Account>> entry : clients.entrySet()) {
+            if (entry.getKey().equals(user)) {
+                for ( Account tmpAccount : entry.getValue()) {
+                    if (tmpAccount.getRequisites().equals(req)) {
+                        account = tmpAccount;
+                        break;
+                    }
+                }
+            }
+        }
+        return account;
     }
 }
