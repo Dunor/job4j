@@ -1,5 +1,7 @@
 package ru.job4j.bank;
 
+import com.sun.javafx.scene.input.InputEventUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +9,6 @@ import java.util.Map;
 
 public class BankService {
 
-    //private Map<User, List<Account>> clients = new HashMap<>();
     private Map<User, List<Account>> users = new HashMap<>();
 
     //добавление пользователя.
@@ -17,7 +18,11 @@ public class BankService {
 
     //добавить счёт пользователю.
     public void addAccount(String passport, Account account) {
-        users.get(this.findByPassport(passport)).add(account);
+        User user = findByPassport(passport);
+        if (user != null) {
+            users.get(user).add(account);
+        }
+
     }
 
     //поиск пользователя по паспорту
@@ -26,6 +31,7 @@ public class BankService {
         for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
             if (entry.getKey().getPassport().equals(passport)) {
                 user = entry.getKey();
+                break;
             }
         }
         return user;
@@ -35,12 +41,14 @@ public class BankService {
     public Account findByRequisite(String passport, String requisite) {
         Account account = null;
         User user = findByPassport(passport);
-        for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
-            if (entry.getKey().equals(user)) {
-                for ( Account tmpAccount : entry.getValue()) {
-                    if (tmpAccount.getRequisite().equals(requisite)) {
-                        account = tmpAccount;
-                        break;
+        if (user != null) {
+            for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
+                if (entry.getKey().equals(user)) {
+                    for (Account tmpAccount : entry.getValue()) {
+                        if (tmpAccount.getRequisite().equals(requisite)) {
+                            account = tmpAccount;
+                            break;
+                        }
                     }
                 }
             }
@@ -50,11 +58,7 @@ public class BankService {
 
     // удаление пользователя.
     public void deleteUser(User user) {
-        for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
-            if (entry.getKey().equals(user)) {
-                users.remove(user);
-            }
-        }
+        users.remove(user);
     }
 
     //метод для перечисления денег с одного счёта на другой счёт
@@ -64,11 +68,7 @@ public class BankService {
         Account srcAccount = findByRequisite(srcPassport, srcRequisite);
         Account dstAccount = findByRequisite(destPassport, dеstRequisite);
         if (srcAccount != null && dstAccount != null) {
-            if (srcAccount.getBalance() >= amount) {
-                dstAccount.setBalance(dstAccount.getBalance() + amount);
-                srcAccount.setBalance(srcAccount.getBalance() - amount);
-                rsl = true;
-            }
+            rsl = srcAccount.transfer(dstAccount, amount);
         }
         return rsl;
     }
