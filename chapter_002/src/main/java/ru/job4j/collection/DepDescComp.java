@@ -8,17 +8,18 @@ import java.util.Comparator;
 public class DepDescComp implements Comparator<String>{
     @Override
     public int compare(String o1, String o2) {
-        ArrayList<String> arr1 = (new ArrayList<>(Arrays.asList(o1.split("/", 2))));
-        ArrayList<String> arr2 = (new ArrayList<>(Arrays.asList(o2.split("/", 2))));
-        int res;
-        res = arr1.get(0).compareTo(arr2.get(0));
-        if (res == 0) {
-            if (arr1.size() < arr2.size()) {
-                arr1.add("~");
-            } else if (arr2.size() < arr1.size()) {
-                arr2.add("~");
+        int res = 0;
+        int rstComp = Integer.compare(o1.length(), o2.length());
+        String str = o1.length() < o2.length() ? o1 : o2;
+        boolean f = false;
+        for (int i = 0; i < str.length(); i++) {
+            res = Character.compare(o1.charAt(i), o2.charAt(i));
+            if (res != 0) {
+                break;
+            } else if ((i == str.length() - 1) && (rstComp != 0)) {
+                    res = o2.length() - o1.length();
             }
-            res = arr1.get(1).compareTo(arr2.get(1));
+
         }
         return res;
     }
